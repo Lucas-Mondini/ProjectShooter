@@ -15,12 +15,38 @@ public:
 	// Sets default values for this character's properties
 	AmyPlayer();
 
+	
+
+	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	class UCameraComponent *camera;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	class USpringArmComponent *spring;
+	*/
+
+	
+
+protected:
+	// Called when the game starts or when spawned
+
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	TSubclassOf<class AWeapon> BP_Weapons;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Jump")
+	bool isJumping;
+
+	void jump();
+
+	void stopJump();
+
 	void moveY(float scale);
 
 	void moveX(float scale);
 
-protected:
-	// Called when the game starts or when spawned
+	void crouch();
+
+	void unCrouch();
+
 	virtual void BeginPlay() override;
 
 public:	
