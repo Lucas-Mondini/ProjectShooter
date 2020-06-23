@@ -32,7 +32,6 @@ AWeapon::AWeapon()
 	arrowWeapon->SetupAttachment(meshWeapon, FName("MuzzleFlashSocket"));
 	arrowWeapon->SetRelativeLocation(FVector(1.5f, 0.f, -1.2f));
 	arrowWeapon->SetRelativeScale3D(FVector(0.3f, 0.8f, 0.7f));
-
 }
 
 // Called when the game starts or when spawned
