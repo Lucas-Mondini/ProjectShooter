@@ -47,9 +47,12 @@ protected:
 
 	void unCrouch();
 
+	void shoot();
+
 	virtual void BeginPlay() override;
 
 public:	
+	class AWeapon *weaponPlayer;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

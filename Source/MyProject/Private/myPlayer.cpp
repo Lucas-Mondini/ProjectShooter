@@ -10,6 +10,7 @@
 #include "Engine/World.h"
 #include "Weapon.h"
 #include "Engine/EngineTypes.h"
+#include "Public/WorldCollision.h"
 
 
 // Sets default values
@@ -68,6 +69,11 @@ void AmyPlayer::unCrouch()
 	UnCrouch();
 }
 
+void AmyPlayer::shoot()
+{
+	weaponPlayer->shoot();
+}
+
 
 // Called when the game starts or when spawned
 void AmyPlayer::BeginPlay()
@@ -76,7 +82,7 @@ void AmyPlayer::BeginPlay()
 
 	FActorSpawnParameters parameters;
 	parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	AWeapon *weaponPlayer = GetWorld()->SpawnActor<AWeapon>(BP_Weapons, FTransform(), parameters);
+	weaponPlayer = GetWorld()->SpawnActor<AWeapon>(BP_Weapons, FTransform(), parameters);
 
 	weaponPlayer->AttachToComponent(Cast<USceneComponent>(GetMesh()), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("socketWeapon"));
 }
@@ -102,6 +108,7 @@ void AmyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("leftCTRL", EInputEvent::IE_Released, this, &AmyPlayer::unCrouch);
 	PlayerInputComponent->BindAction("jump", EInputEvent::IE_Pressed, this, &AmyPlayer::jump);
 	PlayerInputComponent->BindAction("jump", EInputEvent::IE_Released, this, &AmyPlayer::stopJump);
+	PlayerInputComponent->BindAction("leftMouse", EInputEvent::IE_Pressed, this, &AmyPlayer::shoot);
 
 	
 	
