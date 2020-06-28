@@ -61,17 +61,17 @@ void AWeapon::shoot()
 		/*O Raio de Raycast percorre até o fim, precisamos setar algo para o "hit" de impacto para 
 		termos o resultado de que realmente o "raio" chegou no fim*/
 		FHitResult infoImpact;
-		FCollisionQueryParams Parameters;
+		FCollisionQueryParams parameters;
 		//Não queremos que o raio coluda com a própria flexa (this)
-		Parameters.AddIgnoredActor(this);
-		Parameters.AddIgnoredActor(GetOwner()); // Ignora colisão com o dono da hierarquia desses componentes(A malha da arma)
-		Parameters.bTraceAsyncScene = true; // Analisar todos os vértices da colisão
+		parameters.AddIgnoredActor(this);
+		parameters.AddIgnoredActor(GetOwner()); // Ignora colisão com o dono da hierarquia desses componentes(A malha da arma)
+		parameters.bTraceAsyncScene = true; // Analisar todos os vértices da colisão
 
-		bool hit = GetWorld()->LineTraceSingleByChannel(infoImpact, start, end, ECollisionChannel::ECC_Visibility, Parameters);
+		bool hit = GetWorld()->LineTraceSingleByChannel(infoImpact, start, end, ECollisionChannel::ECC_Visibility, parameters);
 
 		if (hit)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Acertou em algo!"));
+			UE_LOG(LogTemp, Warning, TEXT("Acertou em algo! Arriba!"));
 		}
 
 		DrawDebugLine(GetWorld(), start, end, FColor::Red, false, 5.0f, (uint8)0, 1.0f);
