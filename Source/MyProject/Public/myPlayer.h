@@ -14,7 +14,7 @@ class MYPROJECT_API AmyPlayer : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AmyPlayer();
-
+	void addAmmo(int amount);
 	
 
 	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
@@ -49,16 +49,26 @@ protected:
 
 	void shoot();
 
+
 	virtual void BeginPlay() override;
 
 public:	
 	class AWeapon *weaponPlayer;
+
+
+	void checkAmmo();
+
+
+
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	
+private:
+	int life;
+	int ammo;
 	
 };

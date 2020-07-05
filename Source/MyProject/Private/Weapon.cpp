@@ -78,7 +78,7 @@ void AWeapon::shoot()
 		//Pega a posição da "seta (arrowWeapon)" da arma, seta da arma
 		FVector start = arrowWeapon->GetComponentLocation(); //Posição inicial da flecha
 		FVector direction = arrowWeapon->GetComponentRotation().Vector(); //direção da flecha
-		FVector end = start + (direction * 1000);
+		FVector end = start + (direction * 3000);
 
 		/*O Raio de Raycast percorre até o fim, precisamos setar algo para o "hit" de impacto para 
 		termos o resultado de que realmente o "raio" chegou no fim*/

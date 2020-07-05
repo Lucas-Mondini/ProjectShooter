@@ -19,6 +19,9 @@ AmyPlayer::AmyPlayer()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	this->life = 100;
+	this->ammo = 50;
+
 	//Estamos setando manualmente alguns parâmetros que são disponíveis via gráfico, novamente apenas por praticidade
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	GetCharacterMovement()->AirControl = 0.05f;
@@ -27,6 +30,10 @@ AmyPlayer::AmyPlayer()
 	GetCharacterMovement()->CrouchedHalfHeight = 70.f;
 	AutoPossessPlayer = EAutoReceiveInput::Player0;//Parâmetro responsável por setar a classe como jogador 1 (player1)
 
+}
+
+void AmyPlayer::addAmmo(int amount) {
+	this->ammo += amount;
 }
 
 void AmyPlayer::moveX(float scale)
@@ -70,7 +77,17 @@ void AmyPlayer::unCrouch()
 void AmyPlayer::shoot()
 {
 	//Chamando uma função atirar (shoot) da classe Weapon.cpp
-	weaponPlayer->shoot();
+	if (this->ammo > 0) {
+		weaponPlayer->shoot();
+		this->ammo--;
+	}
+}
+
+void AmyPlayer::checkAmmo() {
+	if (this->ammo > 500)
+		this->ammo = 500;
+	else if (this->ammo < 0)
+		this->ammo = 0;
 }
 
 
@@ -78,6 +95,8 @@ void AmyPlayer::shoot()
 void AmyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+
 
 	//Estudar
 	FActorSpawnParameters parameters;
@@ -90,7 +109,7 @@ void AmyPlayer::BeginPlay()
 void AmyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	checkAmmo();
 }
 
 // Called to bind functionality to input
