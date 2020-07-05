@@ -20,10 +20,23 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "weapon")
-	class USkeletalMeshComponent *meshWeapon;
+		class USkeletalMeshComponent *meshWeapon;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "weapon")
 		class UArrowComponent *arrowWeapon;
+
+	UPROPERTY(EditAnywhere, Category = effectsWeapon)
+		class UParticleSystem *effectMuzzle;
+
+	UPROPERTY(EditAnywhere, Category = effectsImpact)
+		class UParticleSystem *impactBlood;
+
+	UPROPERTY(EditAnywhere, Category = effectsImpact)
+		class UParticleSystem *impactGeral;
+
+	UPROPERTY(EditAnywhere, Category = effectsImpact)
+		class UMaterialInterface *decalImpactGeral;
+
 
 public:	
 	// Called every frame
