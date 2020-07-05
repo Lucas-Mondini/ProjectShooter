@@ -128,6 +128,9 @@ void AWeapon::shoot()
 
 		//DrawDebugLine(GetWorld(), start, end, FColor::Red, false, 5.0f, (uint8)0, 1.0f);
 			   
+
+
+
 		if (effectMuzzle) // Fogo "explosão inicial" do tiro na arma
 		{
 			FVector location = arrowWeapon->GetComponentLocation();
