@@ -15,6 +15,9 @@
 #include "Animation/SkeletalMeshActor.h"
 #include "Materials/MaterialInterface.h"
 #include "Math/UnrealMathUtility.h"
+#include "GameFramework/Character.h"
+#include "botCharacter.h"
+#include "myPlayer.h"
 
 
 // Sets default values
@@ -98,14 +101,34 @@ void AWeapon::shoot()
 
 
 			AActor *Ator = infoImpact.GetActor();
-			//Se a classe do ator que o raio atingiu for do tipo SkeletalMeshActor ou subclasse da mesma e impactblood !=0
-			if (Ator->GetClass()->IsChildOf(ASkeletalMeshActor::StaticClass()) && impactBlood)
+			//Se a classe do ator que o raio atingiu for do tipo ACharacter ou subclasse da mesma e impactblood !=0
+			if (Ator->GetClass()->IsChildOf(ACharacter::StaticClass()) && impactBlood)
 			{
 				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),
 					impactBlood,
 					infoImpact.Location,
 					infoImpact.ImpactNormal.Rotation(),
 					true);
+
+				//Fazemos um cast para o objeto do tipo player
+				// Se o ponteiro player não estiver vazio, significa que o cast deu certo e que o trace do tiro atingiu ou colidiu com um jogador
+				AmyPlayer *player = Cast<AmyPlayer>(Ator);
+				if (player != nullptr)
+				{
+					player->setHP(0.25f); // tira 0.25 do hp do player(jogador)
+				}
+				//Se não for um jogador o cast irá falhar e o ponteiro player será nulo e o código entrará aqui
+				else
+				{
+					// Tentamos novamente o cast, só que para o tipo da classe pertencente ao objeto enemy
+					// Logo se o resultado da colisão do line trace que está no Ator puder ser realizado este Cast, significa que
+					// o tiro atingiu um inimigo e o ponteiro inimigo não será nulo
+					AbotCharacter *enemy = Cast<AbotCharacter>(Ator);
+					if (enemy != nullptr)
+					{
+						enemy->setHP(5.0f); // tira 5 de hp do inimigo
+					}
+				}
 			}
 			//Se não for inimigo, não queremos que seja sangue..
 			else if (impactGeral)

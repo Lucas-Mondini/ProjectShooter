@@ -19,8 +19,8 @@ AmyPlayer::AmyPlayer()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	this->life = 100;
-	this->ammo = 50;
+	//this->life = 100;
+	this->ammo = 5000;
 
 	//Estamos setando manualmente alguns parâmetros que são disponíveis via gráfico, novamente apenas por praticidade
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
@@ -96,8 +96,6 @@ void AmyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-
-
 	//Estudar
 	FActorSpawnParameters parameters;
 	parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -137,5 +135,28 @@ void AmyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("leftMouse", EInputEvent::IE_Pressed, this, &AmyPlayer::shoot);//Podemos notar isso quando chamamos a função "shoot", mesmo que você mantenha o botão esquerdo do mouse, as balas não saem, a não ser que solte
 	//o bõtão e pressione novamente
  
+}
+
+void AmyPlayer::setHP(float damage)
+{
+	if(hp > 0.0f)
+	{
+		hp -= damage;
+	}
+	else if (hp <= 0.0f)
+	{
+		isDead = true;
+	}
+	
+}
+
+float AmyPlayer::getHP()
+{
+	return hp;
+}
+
+bool AmyPlayer::isDeadFlag()
+{
+	return isDead;
 }
 
