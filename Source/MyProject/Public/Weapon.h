@@ -28,6 +28,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = effectsWeapon)
 		class UParticleSystem *effectMuzzle;
 
+	UPROPERTY(EditAnywhere, Category = "soundShoot")
+		class USoundBase *soundShoot;
+
 	UPROPERTY(EditAnywhere, Category = effectsImpact)
 		class UParticleSystem *impactBlood;
 

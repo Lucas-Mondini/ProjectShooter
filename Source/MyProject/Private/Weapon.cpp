@@ -16,6 +16,7 @@
 #include "Materials/MaterialInterface.h"
 #include "Math/UnrealMathUtility.h"
 #include "GameFramework/Character.h"
+#include "Sound/SoundBase.h"
 #include "botCharacter.h"
 #include "myPlayer.h"
 
@@ -30,6 +31,7 @@ AWeapon::AWeapon()
 	impactGeral = nullptr;
 	impactBlood = nullptr;
 	decalImpactGeral = nullptr;
+	soundShoot = nullptr;
 
 	//meshWeapon é uma classe do tipo SkeletalMesh != StaticMesh, nesse momento é criado um componente do tipo SkeletalMesh com nome MeshWeapon
 	meshWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(FName("MeshWeapon")); 
@@ -95,6 +97,10 @@ void AWeapon::shoot()
 
 		bool hit = GetWorld()->LineTraceSingleByChannel(infoImpact, start, end, ECollisionChannel::ECC_Visibility, parameters);
 
+		if (soundShoot)
+		{
+			UGameplayStatics::PlaySoundAtLocation(arrowWeapon, soundShoot, start);
+		}
 		if (hit)// se hit for diferente de 0 (falso)
 		{
 			//UE_LOG(LogTemp, Warning, TEXT("Acertou em algo! Arriba!"));
